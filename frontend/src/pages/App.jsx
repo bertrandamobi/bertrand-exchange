@@ -32,12 +32,16 @@ export default function App() {
         <MarketChart symbol={selected} candles={selectedSeries} />
       </section>
       <section className='panel'>
-        <OrderPanel symbol={selected} onSubmit={(order)=>dispatch(placeDemoOrder({ ...order, price: prices[selected], ts: new Date().toISOString() }))} />
+        <OrderPanel symbol={selected} onSubmit={(order)=>{
+          const unitPrice = prices[selected];
+          const totalPrice = Number((unitPrice * order.qty).toFixed(2));
+          dispatch(placeDemoOrder({ ...order, unitPrice, totalPrice, ts: new Date().toISOString() }));
+        }} />
         <h3>Indicators</h3><p>RSI: {signalRsi}</p><p>SMA(20): {signalSma}</p><p>MACD: 1.42 (demo)</p>
       </section>
       <section className='panel'>
         <h3>Account Overview</h3><p>Cash: ${cash.toLocaleString()}</p><p>Portfolio: ${portfolioValue.toFixed(2)}</p>
-        <h4>Recent Trades</h4>{trades.slice(0,5).map((t,i)=><div key={i} className='news'>{t.side.toUpperCase()} {t.qty} {t.symbol} @ ${t.price}</div>)}
+        <h4>Recent Trades</h4>{trades.slice(0,5).map((t,i)=><div key={i} className='news'>{t.side.toUpperCase()} {t.qty} {t.symbol} for ${t.totalPrice.toFixed(2)} (${t.unitPrice.toFixed(2)} each)</div>)}
         <h4>AI News Feed</h4>{news.map((n,i)=><div key={i} className='news'>{n.headline}</div>)}
       </section>
     </main>
