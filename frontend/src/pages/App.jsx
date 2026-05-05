@@ -44,7 +44,7 @@ export default function App() {
     <footer className='footer'>
       <p>© 2022 Bertrand Amobi.</p>
       <p>For demonstration purposes only.</p>
-      <a href='https://github.com/vetygrenaz/bertrand-exchange' target='_blank' rel='noreferrer'><GithubIcon /> View Source Code</a>
+      <a href='https://github.com/bertrandamobi/bertrand-exchange' target='_blank' rel='noreferrer'><GithubIcon /> View Source Code</a>
     </footer>
   </div>;
 }
